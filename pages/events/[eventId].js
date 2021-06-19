@@ -12,7 +12,7 @@ const EventDetailPage = (props) => {
     const event = props.selectedEvent;
 
     if(!event){
-        return <Fragment><ErrorAlert><p> no event found</p></ErrorAlert><div className='center'><Button link="/events">Show All eventes</Button></div></Fragment>
+        return <Fragment><div className="center"><p>loading...</p></div><div className='center'><Button link="/events">Show All eventes</Button></div></Fragment>
     }
 
     return (
@@ -41,13 +41,13 @@ export async function getStaticProps(context) {
   }
   
   export async function getStaticPaths() {
-    const events = await getAllEvents();
+    const events = await getFeaturedEvents();
   
     const paths = events.map(event => ({ params: { eventId: event.id } }));
   
     return {
       paths: paths,
-      fallback: false
+      fallback: 'blocking'
     };
   }
   
